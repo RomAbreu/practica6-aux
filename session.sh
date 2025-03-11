@@ -10,6 +10,8 @@ if [ ! -e "/etc/haproxy/haproxy.cfg.original" ]; then
   sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original
 fi
 
+sudo cp ~/practica6-aux/haproxy.cfg  /etc/haproxy/haproxy.cfg
+
 # Reinicando el servicio de HAProxy
 sudo service haproxy stop && sudo service haproxy start
 
