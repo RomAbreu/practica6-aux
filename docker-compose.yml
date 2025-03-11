@@ -1,0 +1,93 @@
+services:
+  app-web-1:
+    image: romabreu/practica6-wa
+    env_file:
+      - .env
+    ports:
+      - ${SERVER_PORT_1:-8080}:${SERVER_PORT_1:-8080}
+    environment:
+      - NOMBRE_APP=${AMBIENTE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=${DB_HOST}
+      - SERVER_PORT=${SERVER_PORT_1:-8080}
+    restart: always
+    networks:
+      - red-app
+    depends_on:
+      - base-datos-app-web
+
+  app-web-2:
+    image: romabreu/practica6-wa
+    env_file:
+      - .env
+    ports:
+      - ${SERVER_PORT_2:-8081}:${SERVER_PORT_2:-8081}
+    environment:
+      - NOMBRE_APP=${AMBIENTE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=${DB_HOST}
+      - SERVER_PORT=${SERVER_PORT_2:-8081}
+    restart: always
+    networks:
+      - red-app
+    depends_on:
+      - base-datos-app-web
+
+  app-web-3:
+    image: romabreu/practica6-wa
+    env_file:
+      - .env
+    ports:
+      - ${SERVER_PORT_3:-8082}:${SERVER_PORT_3:-8082}
+    environment:
+      - NOMBRE_APP=${AMBIENTE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=${DB_HOST}
+      - SERVER_PORT=${SERVER_PORT_3:-8082}
+    restart: always
+    networks:
+      - red-app
+    depends_on:
+      - base-datos-app-web
+
+  base-datos-app-web:
+    image: mysql:latest
+    env_file:
+      - .env
+    volumes:
+      - ${VOLUME_PATH}:/var/lib/mysql
+    networks:
+      - red-app
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_TCP_PORT: ${DB_PORT}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - ${PUERTO_PHPMYADMIN:-8083}:80
+    environment:
+      PMA_HOST: base-datos-app-web
+      PMA_ARBITRARY: 1
+    networks:
+      - red-app
+    depends_on:
+      - base-datos-app-web
+
+networks:
+  red-app:
