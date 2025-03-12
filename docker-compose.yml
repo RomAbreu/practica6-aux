@@ -83,20 +83,5 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_TCP_PORT: ${DB_PORT}
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    restart: always
-    env_file:
-      - .env
-    ports:
-      - ${PUERTO_PHPMYADMIN:-8083}:80
-    environment:
-      PMA_HOST: base-datos-app-web
-      PMA_ARBITRARY: 1
-    networks:
-      - red-app
-    depends_on:
-      - base-datos-app-web
-
 networks:
   red-app:

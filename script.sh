@@ -16,5 +16,3 @@ apt-cache policy docker-ce
 sudo apt install -y docker-ce
 
 git clone https://github.com/RomAbreu/practica6-aux.git
-
-chmod +x ~/practica6-aux/session.sh
