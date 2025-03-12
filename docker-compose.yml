@@ -1,4 +1,13 @@
 services:
+  haproxy:
+    image: haproxy:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    networks:
+      - red-app
+
   app-web-1:
     image: romabreu/practica6-wa
     env_file:

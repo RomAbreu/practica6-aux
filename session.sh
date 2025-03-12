@@ -18,7 +18,7 @@ sudo service haproxy stop && sudo service haproxy start
 cd ~/practica6-aux
 
 # subiendo las instancias de las aplicaciones
-docker compose build
-docker compose up
+sudo docker compose build
+sudo docker compose up -d
 
 echo "Completando ambiente Sesiones Centralizadas"
