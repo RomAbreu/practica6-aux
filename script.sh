@@ -7,7 +7,7 @@ sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
-sudo apt update && sudo apt install -y nmap zip unzip haproxy certbot
+sudo apt update && sudo apt install -y nmap zip unzip haproxy
 
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -16,3 +16,14 @@ apt-cache policy docker-ce
 sudo apt install -y docker-ce
 
 git clone https://github.com/RomAbreu/practica6-aux.git
+
+sudo apt update
+sudo apt -y install software-properties-common
+sudo add-apt-repository -y ppa:certbot/certbot
+sudo apt-get -y update
+sudo apt-get -y install certbot
+
+sudo certbot certonly --standalone -d example.com -d www.example.com
+
+cat /etc/letsencrypt/live/example.com/fullchain.pem /etc/letsencrypt/live/example.com/privkey.pem > ~/haproxy.pem
+mv ~/haproxy.pem ~/practica6-aux/haproxy.pem

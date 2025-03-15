@@ -10,11 +10,13 @@ services:
   haproxy:
     image: haproxy:latest
     ports:
-      - ${HAPROXY_PORT:-80}:${HAPROXY_PORT:-80}
+      - ${HAPROXY_HTTP_PORT:-80}:${HAPROXY_HTTP_PORT:-80}
+      - ${HAPROXY_HTTPS_PORT:-443}:${HAPROXY_HTTPS_PORT:-443}
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./haproxy.pem:/etc/haproxy/ssl/haproxy.pem
       - type: tmpfs
-        target: /run/haproxy # Asegura que el directorio para el socket exista
+        target: /run/haproxy
     networks:
       - red-app
 
@@ -98,6 +100,21 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_TCP_PORT: ${DB_PORT}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - ${PUERTO_PHPMYADMIN:-8084}:80
+    environment:
+      PMA_HOST: base-datos-app-web
+      PMA_ARBITRARY: 1
+    networks:
+      - red-app
+    depends_on:
+      - base-datos-app-web
 
 networks:
   red-app:
