@@ -23,7 +23,7 @@ sudo add-apt-repository -y ppa:certbot/certbot
 sudo apt-get -y update
 sudo apt-get -y install certbot
 
-sudo certbot certonly --standalone -d example.com -d www.example.com
+sudo certbot certonly --standalone -d practica6.turnos.do -d www.practica6.turnos.do
 
-cat /etc/letsencrypt/live/example.com/fullchain.pem /etc/letsencrypt/live/example.com/privkey.pem > ~/haproxy.pem
+cat /etc/letsencrypt/live/practica6.turnos.do/fullchain.pem /etc/letsencrypt/live/practica6.turnos.do/privkey.pem > ~/haproxy.pem
 mv ~/haproxy.pem ~/practica6-aux/haproxy.pem
