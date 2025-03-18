@@ -7,7 +7,7 @@ sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
-sudo apt update && sudo apt install -y nmap zip unzip haproxy
+sudo apt update && sudo apt install -y nmap zip unzip
 
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -25,5 +25,5 @@ sudo apt-get -y install certbot
 
 sudo certbot certonly --standalone -d practica6.turnos.do -d www.practica6.turnos.do
 
-cat /etc/letsencrypt/live/practica6.turnos.do/fullchain.pem /etc/letsencrypt/live/practica6.turnos.do/privkey.pem > ~/haproxy.pem
+sudo cat /etc/letsencrypt/live/practica6.turnos.do/fullchain.pem /etc/letsencrypt/live/practica6.turnos.do/privkey.pem > ~/haproxy.pem
 mv ~/haproxy.pem ~/practica6-aux/haproxy.pem
